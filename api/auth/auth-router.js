@@ -35,7 +35,17 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     res.status(500).json({message: err.message})
   }
-  
 });
+
+function generateToken(user) {
+  const payload = {
+    subject : user.id,
+    username: user.username,
+  }
+  const options = {
+    expiresIn: '10000s'
+  }
+  return jwt.sign(payload, secret, options)
+}
 
 module.exports = router;
