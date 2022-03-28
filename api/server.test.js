@@ -57,5 +57,21 @@ describe('server.js', () => {
       })
     })
   })
+  describe('jokes endpoint', () => {
+    describe('[GET]/api/jokes', () => {
+      beforeEach(async () => {
+        await db('users').truncate()
+        await request(server).post('/api/auth/register').send(userOne)
+      })
+      test('respond with err status on missing token', async () => {
+        const res = await request(server).get('/api/jokes')
+        expect(res.status + '').toMatch(/4|5/)
+      })
+      test('respond with "token required" on missing token', async () => {
+        const res = await request(server).get('/api/jokes')
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
+      })
+    })
+  })
 })
 
