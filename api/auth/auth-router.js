@@ -12,7 +12,7 @@ const secret = process.env.SECRET || 'the secret'
 
 
 router.post('/register', uniqueUsername, async (req, res) => {
-  res.end('implement register, please!');
+  
   
   try {
     const { username, password } = req.body
